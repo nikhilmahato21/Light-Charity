@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const donationSchema = new mongoose.Schema({
+  bloodBank: { type: mongoose.Schema.Types.ObjectId, ref: "BloodBank" },
+  quantity: { type: Number, required: true },
+  donationDate: { type: Date, default: Date.now },
+});
 const donorSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -11,12 +16,11 @@ const donorSchema = new mongoose.Schema(
       type: String,
       enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
     },
-    donated: Number,
-    donatedAt: [],
-    date: Date,
+
+    donatedAt: [donationSchema],
   },
 
   { timestamps: true }
 );
 
-export default mongoose.model("Donor", Donor);
+export default mongoose.model("Donor", donorSchema);
