@@ -23,6 +23,7 @@ export const login = async (req, res) => {
     bloodBankId: bloodBank._id,
     inventory: bloodBank.inventory,
   });
+
   const oneDay = 1000 * 60 * 60 * 24;
 
   res.cookie("token", token, {
@@ -30,5 +31,6 @@ export const login = async (req, res) => {
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
+
   res.status(StatusCodes.OK).json({ msg: "login successfull" });
 };
